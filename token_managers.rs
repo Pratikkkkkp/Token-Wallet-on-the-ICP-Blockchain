@@ -16,3 +16,11 @@ impl TokenManager {
         }
     }
 
+    pub fn receive_tokens(&mut self, amount: u64) {
+        self.balance += amount;
+    }
+
+    pub fn get_balance(&self) -> u64 {
+        self.balance
+    }
+}
