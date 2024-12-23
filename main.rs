@@ -71,3 +71,31 @@ async fn receive_tokens(transaction: web::Json<TokenTransaction>) -> impl Respon
 
     HttpResponse::Ok().json("Tokens received")
 }
+
+async fn get_balance() -> impl Responder {
+    let pool = establish_connection();
+    let mut conn = pool.get_conn().expect("Failed to get connection from pool");
+
+    let result: Result<Option<u64>, _> = conn.exec_first("SELECT balance FROM balance", ());
+
+    match result {
+        Ok(Some(balance)) => HttpResponse::Ok().json(Balance { balance }),
+        _ => HttpResponse::InternalServerError().json("Failed to get balance"),
+    }
+}
+
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+    HttpServer::new(|| {
+        App::new()
+            // Serve static files from the "frontend" directory
+            .service(fs::Files::new("/", "frontend").index_file("index.html"))
+            // Your API routes
+            .route("/send", web::post().to(send_tokens))
+            .route("/receive", web::post().to(receive_tokens))
+            .route("/balance", web::get().to(get_balance))
+    })
+    .bind("127.0.0.1:8000")?
+    .run()
+    .await
+}
