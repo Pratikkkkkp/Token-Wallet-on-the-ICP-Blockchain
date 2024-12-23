@@ -49,3 +49,25 @@ async fn send_tokens(transaction: web::Json<TokenTransaction>) -> impl Responder
         Err(_) => HttpResponse::InternalServerError().json("Failed to send tokens"),
     }
 }
+
+async fn receive_tokens(transaction: web::Json<TokenTransaction>) -> impl Responder {
+    let pool = establish_connection();
+    let mut conn = pool.get_conn().expect("Failed to get connection from pool");
+
+    conn.exec_drop(
+        "INSERT INTO transactions (address, amount, transaction_type) VALUES (:address, :amount, 'receive')",
+        params! {
+            "address" => &transaction.address,
+            "amount" => transaction.amount,
+        },
+    ).expect("Failed to insert transaction");
+
+    conn.exec_drop(
+        "UPDATE balance SET balance = balance + :amount",
+        params! {
+            "amount" => transaction.amount,
+        },
+    ).expect("Failed to update balance");
+
+    HttpResponse::Ok().json("Tokens received")
+}
