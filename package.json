@@ -1,0 +1,19 @@
+{
+  "name": "token-wallet",
+  "version": "1.0.0",
+  "description": "The wallet interacts with the Internet Computer's ICRC-1 and ICRC-2 token standards, allowing users to deposit, hold, and transfer tokens.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pratikkkkkp/Token-Wallet-on-the-ICP-Blockchain.git"
+  },
+  "author": "Pratik Pal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pratikkkkkp/Token-Wallet-on-the-ICP-Blockchain/issues"
+  },
+  "homepage": "https://github.com/Pratikkkkkp/Token-Wallet-on-the-ICP-Blockchain#readme"
+}
