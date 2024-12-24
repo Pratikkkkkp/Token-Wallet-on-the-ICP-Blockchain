@@ -11,6 +11,9 @@ serde_json = "1.0"
 mysql = "25.0.1"  # Downgrade to a compatible version
 dotenv = "0.15"
 
+[[bin]]
+name = "Token-Wallet-on-the-ICP-Blockchain-backend"
+path = "main.rs"
 # Optional: explicitly specify compatible versions for bitvec and funty
 bitvec = "1.0.1"
 funty = "2.0.0"

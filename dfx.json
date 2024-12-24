@@ -1,30 +1,43 @@
 {
   "canisters": {
+    "Token-Wallet-on-the-ICP-Blockchain-backend": {
+      "candid": "src/Token-Wallet-on-the-ICP-Blockchain-backend/Token-Wallet-on-the-ICP-Blockchain-backend.did",
+      "package": "Token-Wallet-on-the-ICP-Blockchain-backend",
+      "type": "rust"
+    },
+    "Token-Wallet-on-the-ICP-Blockchain-frontend": {
+      "dependencies": ["Token-Wallet-on-the-ICP-Blockchain-backend"],
+      "source": ["src/Token-Wallet-on-the-ICP-Blockchain-frontend/assets"],
+      "type": "assets"
+    },
+    "internet_identity": {
+      "candid": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity.did",
+      "frontend": {},
+      "remote": {
+        "id": {
+          "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai"
+        }
+      },
+      "type": "custom",
+      "wasm": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity_dev.wasm.gz"
+    },
     "icrc1_ledger_canister": {
       "type": "custom",
-      "build": "cargo build --target wasm32-unknown-unknown --release",
-      "candid": "src/icrc1_ledger/icrc1_ledger.did",
-      "wasm": "target/wasm32-unknown-unknown/release/icrc1_ledger.wasm"
-    }
-  },
-  "networks": {
-    "local": {
-      "bind": "127.0.0.1:8001",
-      "type": "ephemeral"
-    },
-    "ic": {
-      "providers": ["https://ic0.app"],
-      "type": "persistent"
+      "wasm": "path_to_your_icrc1_ledger_canister_wasm",
+      "candid": "path_to_your_icrc1_ledger_canister.did"
     }
   },
   "defaults": {
+    "bitcoin": {
+      "enabled": true,
+      "log_level": "info",
+      "nodes": ["127.0.0.1:18444"]
+    },
     "build": {
       "args": "",
-      "output": "canisters"
-    },
-    "deploy": {
-      "mode": "reinstall"
+      "packtool": ""
     }
   },
-  "version": 0
+  "output_env_file": ".env",
+  "version": 1
 }
