@@ -1,0 +1,30 @@
+{
+  "canisters": {
+    "icrc1_ledger_canister": {
+      "type": "custom",
+      "build": "cargo build --target wasm32-unknown-unknown --release",
+      "candid": "src/icrc1_ledger/icrc1_ledger.did",
+      "wasm": "target/wasm32-unknown-unknown/release/icrc1_ledger.wasm"
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8001",
+      "type": "ephemeral"
+    },
+    "ic": {
+      "providers": ["https://ic0.app"],
+      "type": "persistent"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "output": "canisters"
+    },
+    "deploy": {
+      "mode": "reinstall"
+    }
+  },
+  "version": 0
+}
